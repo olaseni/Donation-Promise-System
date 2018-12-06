@@ -1,0 +1,36 @@
+version: '3.5'
+services:
+  app:
+    container_name: 0app
+    build:
+      context: ./django-context
+    image: python-django:dps-1.0
+    depends_on:
+    - db
+    ports:
+    - "9000:9000"
+    volumes:
+    - ./django-context/src/:/src/
+
+  db:
+    container_name: 0db
+    image: postgres:11-alpine
+    environment:
+    - POSTGRES_PASSWORD db
+    - POSTGRES_USER db
+    - POSTGRES_DB db
+    volumes:
+    - pgdata:/var/lib/postgresql/data
+
+  redis:
+    container_name: 0redis
+    image: redis:5.0-rc4-alpine
+
+  adm:
+    container_name: 0adm
+    image: adminer
+    ports:
+    - "8090:8080"
+
+volumes:
+  pgdata:
