@@ -1,0 +1,6 @@
+
+# commands
+
+$> mkdir -p django-context/src/dps
+$> cd django-context/src/dps
+$> django-admin startproject dps ./
