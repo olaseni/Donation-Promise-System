@@ -27,4 +27,5 @@ RUN mkdir /src
 WORKDIR /src
 
 EXPOSE 9000
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:9000"]
+ENTRYPOINT ["python3", "manage.py"]
+CMD ["runserver", "0.0.0.0:9000"]
