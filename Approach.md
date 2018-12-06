@@ -137,3 +137,7 @@ The project will use forms and class bases views to write the UI.
 The sub-tasks are domiciled on [Trello][trello-task] for easy management. [Go][trello-task] ->.
 
    [trello-task]: https://trello.com/b/rslpLFZE/donation-promise-system
+   
+######Notes
+
+Once each task is completed. An appropriate PR with details will be created.
