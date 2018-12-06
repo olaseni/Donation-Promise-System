@@ -4,3 +4,99 @@
 $> mkdir -p django-context/src/dps
 $> cd django-context/src/dps
 $> django-admin startproject dps ./
+
+
+
+
+
+
+------------------
+
+Tasks
+
+
+Setup docker containers (3 hrs, Dec 5)
+	- Redis
+	- Postgres
+	- Python/Django
+
+Setup docker-compose definition/environment (3 hrs, Dec 6)
+	- Single configuration for launch/testing across containers
+
+Setup Django environment (3 hrs, Dec 6)
+	- Settings
+	- Project prototype
+	- DB connections
+	- View configurations
+
+Stub out models (2 hrs, Dec 6)
+	- Causes
+	- Promises
+
+Stub out test suite (1 hr, Dec 7)
+	- Unit tests
+	- Functional tests
+
+Stub out actions (1 hr, Dec 7)
+	- Causes
+	- Promises
+
+Stub out endpoints (1 hr, Dec 7)
+	- Causes
+	- Promises
+
+Setup CI/CD pipeline (CircleCI) in Github (3 hrs, Dec 7)
+	- Add linting to pipeline
+	- Add tests to pipeline
+
+Extend Django users (2 hrs, Dec 10)
+	- Roles and privileges
+
+Setup and implement models (2 hrs, Dec 10)
+	- Causes
+	- Promises
+	- Execute migrations
+
+Setup Redis caching (1 hr, Dec 10)
+
+Extend Admin Management (1 hr, Dec 10)
+	- causes and promises integration
+	- list of promises by cause
+	- reports interface
+
+Hydrate Tests(Users) (2 hrs, Dec 10)
+	- Registration
+	- Login
+
+Implement actions (causes) (3 hrs, Dec 10)
+
+Hydrate tests (causes) (3 hrs, Dec 11) 11am
+
+Implement actions (promises) (3 hrs, Dec 11) 2pm
+
+Hydrate tests (promises) (3 hrs, Dec 11) 5pm
+
+Implement reports (2 hrs, Dec 12) 11am
+
+Hydrate tests (reports) (2 hrs, Dec 12) 1pm
+
+Implement views (registration and login) (2 hrs, Dec 12) 3pm
+
+Implement views (dashboard/home) (2 hrs, Dec 12) 5pm
+
+Implement views (causes list) (2 hrs, Dec 12) 7pm
+
+Implement view (cause detail)  (2 hrs, Dec 13) 11am
+
+Wire up `make a promise` action (2 hrs, Dec 13) 1pm
+
+Wire up reports (2 hrs, Dec 13) 3pm
+
+Hydrate functional and e2e tests (2 hrs, Dec 13) 5pm
+
+
+---------------
+
+
+
+

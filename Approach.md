@@ -130,7 +130,7 @@ Uses DRF to expose the core actions via REST endpoints.
  
 ######Views
  
-The project will use forms and class bases views to write the UI.
+The project will use forms and class based views to write the UI.
 
 ######Sub-Tasks 
 
