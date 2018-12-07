@@ -114,6 +114,7 @@ functions:
 ######API
 
 Uses DRF to expose the core actions via REST endpoints.
+API Root is `/api/v1/`, with support for versioning.
 
  + POST /cause/  - _creates a cause_
  + GET /cause/  - _gets all active causes_
