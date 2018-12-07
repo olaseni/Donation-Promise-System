@@ -25,3 +25,8 @@ manage-dbshell:
 
 manage-shell:
 	@docker-compose exec app bash
+
+manage-test:
+	@docker-compose exec app python3 manage.py test
+
+manage-tests: manage-test

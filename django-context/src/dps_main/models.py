@@ -5,7 +5,7 @@ from django.utils.timezone import now, datetime, timedelta
 
 # Create your models here.
 def tomorrow():
-    return datetime.today() + timedelta(days=1)
+    return now() + timedelta(days=1)
 
 
 class Contact(models.Model):
@@ -30,8 +30,8 @@ class Cause(models.Model):
                                      upload_to='illustration/%Y/%m/%d/')
     contact = models.ForeignKey(Contact, verbose_name='Primary Contact', help_text="Contact associated with the cause",
                                 on_delete=models.CASCADE)
-    expiration_date = models.DateTimeField(help_text="Date for which this cause is no longer valid",
-                                           default=tomorrow)
+    expiration_date = models.DateField(help_text="Date for which this cause is no longer valid",
+                                       default=tomorrow)
     target_amount = models.FloatField('Amount promised, NGN', default=0.0, help_text="Amount promised in NGN")
     created = models.DateTimeField(default=now, editable=False)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
