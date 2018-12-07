@@ -6,7 +6,8 @@ ENV PATH="${PATH}:/code/bin:/app/bin:/source/bin"
 
 RUN apk update \
   && apk add --virtual build-deps gcc musl-dev \
-  && apk add postgresql-dev openssh bash bash-completion \
+  && apk add postgresql-dev postgresql-client openssh bash bash-completion \
+  && apk add --no-cache jpeg-dev zlib-dev \
   && apk add --update make
 
 

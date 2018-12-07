@@ -8,6 +8,7 @@ BASE_DIR = os.path.dirname(BASE_DIR)
 # Application definition
 
 # INSTALLED_APPS
+INSTALLED_APPS = ['dps_main.apps.DpsMainConfig'] + INSTALLED_APPS
 
 # TEMPLATES
 
@@ -23,3 +24,6 @@ DATABASES = {
         'HOST': 'db'
     }
 }
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

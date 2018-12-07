@@ -51,34 +51,39 @@ architecture will be used to hold user profiles, roles and priviledges. This als
 
 To accommodate causes and promises, two entities/tables will be added:
 
+ + **Contact**
+    - Id
+    - First Name
+    - Last Name
+    - Address
+    - Phone
+    - Email
+    - Created
+
  + **Causes**
     - Id
-    - Slug
+    - Title
     - Description
     - Illustration
-    - Primary Contact
+    - Contact Id
     - Address
     - Phone
     - Email
     - Expiration Date
     - Target Amount
-    - Currency
     - Created
-    - Created By
+    - Creator
     - Modified
-    - Modified By
     - Enabled
  
  + **Promises**
     - Id
     - Cause Id (Foreign key to `Causes`)
     - User Id (Foreign key to Django `Users`)
-    - Amount Promised
-    - Promise Date
+    - Amount Promised (i.e. all amounts will be in Naira - NGN)
+    - Target Date
     - Created
-    - Created By
     - Modified
-    - Modified By
 
 ######Actions
 
