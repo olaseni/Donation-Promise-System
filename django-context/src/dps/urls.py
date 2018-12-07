@@ -20,5 +20,3 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dps_main.urls')),
 ]
-
-print(urlpatterns)
