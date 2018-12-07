@@ -8,7 +8,9 @@ BASE_DIR = os.path.dirname(BASE_DIR)
 # Application definition
 
 # INSTALLED_APPS
-INSTALLED_APPS = ['dps_main.apps.DpsMainConfig'] + INSTALLED_APPS
+INSTALLED_APPS = ['dps_main.apps.DpsMainConfig'] \
+                 + INSTALLED_APPS \
+                 + ['rest_framework']
 
 # TEMPLATES
 
@@ -27,3 +29,10 @@ DATABASES = {
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# REST_FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

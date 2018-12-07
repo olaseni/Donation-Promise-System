@@ -30,3 +30,24 @@ manage-test:
 	@docker-compose exec app python3 manage.py test
 
 manage-tests: manage-test
+
+down:
+	@docker-compose down
+
+up:
+	@docker-compose up -d
+
+start: up
+run: up
+
+logs:
+	@docker-compose logs
+
+logsf:
+	@docker-compose logs -f --tail=20
+
+app-logs:
+	@docker-compose logs -f --tail=20 app
+
+build:
+	@docker-compose build

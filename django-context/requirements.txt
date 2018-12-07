@@ -1,4 +1,5 @@
 Django==2.1.4
+djangorestframework==3.9.0
 psycopg2-binary==2.7.5
 ptvsd==3.0.0
 flake8==3.5.0
