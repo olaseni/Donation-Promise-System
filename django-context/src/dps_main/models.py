@@ -1,11 +1,10 @@
 from django.db import models
 from django.conf import settings
-from django.utils.timezone import now, datetime, timedelta
+from datetime import date, timedelta
 
 
-# Create your models here.
 def tomorrow():
-    return now() + timedelta(days=1)
+    return date.today() + timedelta(days=1)
 
 
 class Contact(models.Model):
@@ -14,13 +13,16 @@ class Contact(models.Model):
     address = models.CharField(max_length=300)
     phone = models.CharField(max_length=30)
     email = models.CharField(max_length=100)
-    created = models.DateTimeField(default=now, editable=False)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return F'Contact <{self.id}, {self.first_name} {self.last_name}>'
 
     def __repr__(self):
         return self.__str__()
+
+    class Meta:
+        ordering = ['-created']
 
 
 class Cause(models.Model):
@@ -32,10 +34,10 @@ class Cause(models.Model):
                                 on_delete=models.CASCADE)
     expiration_date = models.DateField(help_text="Date for which this cause is no longer valid",
                                        default=tomorrow)
-    target_amount = models.FloatField('Amount promised, NGN', default=0.0, help_text="Amount promised in NGN")
-    created = models.DateTimeField(default=now, editable=False)
+    target_amount = models.FloatField('Amount targeted, NGN', default=0.0, help_text="Amount targeted in NGN")
+    created = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    modified = models.DateTimeField(default=now, editable=False)
+    modified = models.DateTimeField(auto_now=True)
     enabled = models.BooleanField(default=True)
 
     def __str__(self):
@@ -44,14 +46,18 @@ class Cause(models.Model):
     def __repr__(self):
         return self.__str__()
 
+    class Meta:
+        ordering = ['-created']
+
 
 class Promise(models.Model):
     cause = models.ForeignKey(Cause, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    amount = models.FloatField(help_text="Amount promised toward the associated cause")
-    target_date = models.DateField(help_text="The date for which the promise is expected to be redeemed")
-    created = models.DateTimeField(default=now, editable=False)
-    modified = models.DateTimeField(default=now, editable=False)
+    amount = models.FloatField('Amount promised, NGN', help_text="Amount promised toward the associated cause, NGN")
+    target_date = models.DateField(help_text="The date for which the promise is expected to be redeemed",
+                                   default=tomorrow)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return F'Promise <{self.id}, NGN {self.amount} for cause: ( {self.cause.title} )>'
@@ -60,4 +66,5 @@ class Promise(models.Model):
         return self.__str__()
 
     class Meta:
+        ordering = ['-created']
         unique_together = ('cause', 'user')
