@@ -4,9 +4,6 @@ from dps_main.serializers import UserSerializer, ContactSerializer, CauseSeriali
 from dps_main.models import Contact, Cause, Promise
 
 
-# Create your views here.
-
-
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer

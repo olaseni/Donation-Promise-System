@@ -40,6 +40,9 @@ up:
 start: up
 run: up
 
+restart: down up
+down-up: restart
+
 logs:
 	@docker-compose logs
 

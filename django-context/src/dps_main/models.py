@@ -3,7 +3,6 @@ from django.conf import settings
 from datetime import date, timedelta
 
 
-# Create your models here.
 def tomorrow():
     return date.today() + timedelta(days=1)
 
@@ -22,6 +21,9 @@ class Contact(models.Model):
     def __repr__(self):
         return self.__str__()
 
+    class Meta:
+        ordering = ['-created']
+
 
 class Cause(models.Model):
     title = models.CharField(max_length=200)
@@ -32,7 +34,7 @@ class Cause(models.Model):
                                 on_delete=models.CASCADE)
     expiration_date = models.DateField(help_text="Date for which this cause is no longer valid",
                                        default=tomorrow)
-    target_amount = models.FloatField('Amount promised, NGN', default=0.0, help_text="Amount promised in NGN")
+    target_amount = models.FloatField('Amount targeted, NGN', default=0.0, help_text="Amount targeted in NGN")
     created = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     modified = models.DateTimeField(auto_now=True)
@@ -44,11 +46,14 @@ class Cause(models.Model):
     def __repr__(self):
         return self.__str__()
 
+    class Meta:
+        ordering = ['-created']
+
 
 class Promise(models.Model):
     cause = models.ForeignKey(Cause, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    amount = models.FloatField(help_text="Amount promised toward the associated cause")
+    amount = models.FloatField('Amount promised, NGN', help_text="Amount promised toward the associated cause, NGN")
     target_date = models.DateField(help_text="The date for which the promise is expected to be redeemed",
                                    default=tomorrow)
     created = models.DateTimeField(auto_now_add=True)
@@ -61,4 +66,5 @@ class Promise(models.Model):
         return self.__str__()
 
     class Meta:
+        ordering = ['-created']
         unique_together = ('cause', 'user')
