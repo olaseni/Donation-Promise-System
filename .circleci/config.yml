@@ -13,11 +13,9 @@ jobs:
       - run:
           name: Start Container & Run Tests
           command: |
-            set -a
-            # source .env
-            TESTS_ONLY=1
             # the no-start/create step is enable `docker cp` to operate with established container ids
             # it's a work-around for the limitations of circleci "no bind mounts" issue
-            ## docker-compose --log-level ERROR up --no-start
-            ## docker cp ./ $(docker-compose --log-level ERROR ps -q web):/code/
-            docker-compose up --abort-on-container-exit --exit-code-from app
+            docker-compose --log-level ERROR up --no-start
+            docker cp ./django-context/src/ $(docker-compose --log-level ERROR ps -q web):/src/
+            # docker-compose up --abort-on-container-exit --exit-code-from app
+            make up
