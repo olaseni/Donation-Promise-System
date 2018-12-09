@@ -23,13 +23,17 @@ manage-pyshell:
 manage-dbshell:
 	@docker-compose exec app python3 manage.py dbshell
 
-manage-shell:
-	@docker-compose exec app bash
-
+manage-test: export DJANGO_SETTINGS_MODULE=dps.settings.test
 manage-test:
-	@docker-compose exec app python3 manage.py test
+	@docker-compose run app test
 
 manage-tests: manage-test
+
+app-shell:
+	@docker-compose exec app bash
+
+app-python3:
+	@docker-compose exec app python3
 
 down:
 	@docker-compose down

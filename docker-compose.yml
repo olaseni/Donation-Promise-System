@@ -4,7 +4,7 @@ services:
     container_name: 0app
     image: olaseni/python-django:dps-1.0
     environment:
-      DJANGO_SETTINGS_MODULE: dps.settings.development
+      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-dps.settings.development}
     depends_on:
     - db
     ports:

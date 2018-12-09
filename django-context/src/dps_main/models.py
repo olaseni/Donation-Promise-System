@@ -1,10 +1,11 @@
 from django.db import models
 from django.conf import settings
-from datetime import date, timedelta
+from django.utils.timezone import now
+from datetime import timedelta
 
 
 def tomorrow():
-    return date.today() + timedelta(days=1)
+    return now() + timedelta(days=1)
 
 
 class Contact(models.Model):
