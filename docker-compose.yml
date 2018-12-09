@@ -2,9 +2,7 @@ version: '3.5'
 services:
   app:
     container_name: 0app
-    build:
-      context: ./django-context
-    image: python-django:dps-1.0
+    image: olaseni/python-django:dps-1.0
     environment:
       DJANGO_SETTINGS_MODULE: dps.settings.development
     depends_on:

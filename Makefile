@@ -52,10 +52,19 @@ logsf:
 app-logs:
 	@docker-compose logs -f --tail=20 app
 
-build:
-	@docker-compose build
-
 lint:
 	@flake8 django-context/src
 
 lint-and-test: lint manage-test
+
+build: lint-and-test
+
+docker-build-image:
+	# Builds the python-django image
+	@docker build -t olaseni/python-django:dps-1.0 django-context
+
+docker-build-and-push-image: docker-build-image
+	# Builds and pushes the python-django image to docker hub in one fell swoop
+	# Requires docker login or the `push` leg will fail
+	@docker login
+	@docker push olaseni/python-django:dps-1.0
