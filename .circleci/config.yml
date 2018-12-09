@@ -2,7 +2,7 @@
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
-version: 2.1
+version: 2
 jobs:
   build:
     docker:
@@ -13,9 +13,13 @@ jobs:
       - run:
           name: Start Container & Run Tests
           command: |
+            set -a
+            DJANGO_SETTINGS_MODULE=dps.settings.test
             # the no-start/create step is enable `docker cp` to operate with established container ids
             # it's a work-around for the limitations of circleci "no bind mounts" issue
             docker-compose --log-level ERROR up --no-start
-            docker cp ./django-context/src/ $(docker-compose --log-level ERROR ps -q web):/src/
-            # docker-compose up --abort-on-container-exit --exit-code-from app
-            make up
+            container=$(docker-compose --log-level ERROR ps -q app)
+            docker cp django-context/src/. ${container}:/src
+            docker commit $(docker-compose --log-level ERROR ps -q app) \
+              $(docker inspect -f '{{.Config.Image}}' ${container}) > /dev/null
+            docker-compose run --rm --name dps-app-test app lintandtest

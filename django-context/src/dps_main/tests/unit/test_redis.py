@@ -1,10 +1,12 @@
 import redis
 from unittest.mock import patch
-from django.test import TestCase
+
 from mockredis import mock_redis_client, mock_strict_redis_client
 
+from dps_main.tests import DpsTestCase
 
-class RedisTestCase(TestCase):
+
+class RedisTestCase(DpsTestCase):
     """
     A test case to test that the redis setup is sound
     """
@@ -25,6 +27,7 @@ class RedisTestCase(TestCase):
         """
         Sets a key value pre-test
         """
+        self.assertTestEnvironment()
         self.redis.set('one', 1)
 
     def test_key(self):

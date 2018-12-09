@@ -25,7 +25,7 @@ manage-dbshell:
 
 manage-test: export DJANGO_SETTINGS_MODULE=dps.settings.test
 manage-test:
-	@docker-compose run app test
+	@docker-compose run --rm --name dps-app-test app test
 
 manage-tests: manage-test
 
@@ -72,3 +72,9 @@ docker-build-and-push-image: docker-build-image
 	# Requires docker login or the `push` leg will fail
 	@docker login
 	@docker push olaseni/python-django:dps-1.0
+
+
+circle: down
+	#@docker stop 0db
+	@docker system prune --force
+	@circleci local execute
