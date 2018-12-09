@@ -8,9 +8,7 @@ BASE_DIR = os.path.dirname(BASE_DIR)
 # Application definition
 
 # INSTALLED_APPS
-INSTALLED_APPS = ['dps_main.apps.DpsMainConfig'] \
-                 + INSTALLED_APPS \
-                 + ['rest_framework']
+INSTALLED_APPS = ['dps_main.apps.DpsMainConfig'] + INSTALLED_APPS + ['rest_framework']
 
 # TEMPLATES
 

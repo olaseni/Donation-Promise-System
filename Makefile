@@ -54,3 +54,8 @@ app-logs:
 
 build:
 	@docker-compose build
+
+lint:
+	@flake8 django-context/src
+
+lint-and-test: lint manage-test
