@@ -10,7 +10,10 @@ BASE_DIR = os.path.dirname(BASE_DIR)
 # Application definition
 
 # INSTALLED_APPS
-INSTALLED_APPS = ['dps_main.apps.DpsMainConfig'] + INSTALLED_APPS + ['rest_framework']
+INSTALLED_APPS = ['dps_main.apps.DpsMainConfig'] + INSTALLED_APPS + ['rest_framework', 'adminplus']
+# Admin plus
+INSTALLED_APPS = ['django.contrib.admin.apps.SimpleAdminConfig' if app == 'django.contrib.admin' else app for app in
+                  INSTALLED_APPS]
 
 # TEMPLATES
 
