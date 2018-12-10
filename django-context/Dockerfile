@@ -26,6 +26,7 @@ LABEL name="python:3.7.0-alpine/django-2.1"
 
 RUN mkdir /src
 WORKDIR /src
+COPY src/ ./
 
 EXPOSE 9000
 ENTRYPOINT ["python3", "manage.py"]

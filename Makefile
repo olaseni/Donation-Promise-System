@@ -25,7 +25,7 @@ manage-dbshell:
 
 manage-test: export DJANGO_SETTINGS_MODULE=dps.settings.test
 manage-test:
-	@docker-compose run --rm --name dps-app-test app test
+	@docker-compose run --rm --name dps-app-test app lintandtest
 
 manage-tests: manage-test
 
@@ -54,7 +54,7 @@ logsf:
 	@docker-compose logs -f --tail=20
 
 app-logs:
-	@docker-compose logs -f --tail=20 app
+	@docker-compose logs -f --tail=20 app ; true
 
 lint:
 	@flake8 django-context/src
@@ -73,8 +73,9 @@ docker-build-and-push-image: docker-build-image
 	@docker login
 	@docker push olaseni/python-django:dps-1.0
 
+purge: down
+	@docker stop 0db ; true
+	@docker system prune --force ; true
 
-circle: down
-	#@docker stop 0db
-	@docker system prune --force
+circle: #purge
 	@circleci local execute
