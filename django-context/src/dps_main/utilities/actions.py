@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
@@ -11,7 +10,7 @@ class ActionHelper(object):
     Launches actions that may be executed within the context of a user
     """
 
-    def __init__(self, user: get_user_model()) -> None:
+    def __init__(self, user: User) -> None:
         """
         :param user:
         :type user: User
