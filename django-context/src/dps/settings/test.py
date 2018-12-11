@@ -7,7 +7,7 @@ ENVIRONMENT = 'test'
 DEBUG = True
 
 # filter out cache
-INSTALLED_APPS = [app for app in INSTALLED_APPS if not 'cache' in app]
+INSTALLED_APPS = [app for app in INSTALLED_APPS if 'cache' not in app]
 
 # Redis
 # https://redis.io/

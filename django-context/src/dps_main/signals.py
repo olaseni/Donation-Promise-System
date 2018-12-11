@@ -20,7 +20,6 @@ def initialize():
     pass
 
 
-# noinspection PyBroadException
 def swallow_exception(callback, *args, **kwargs):
     """
     Swallow all exceptions that could inhibit the program flow. Log the exception so the application still keeps track
@@ -51,6 +50,6 @@ def on_model_saved(sender, instance, created, **kwargs):
     """
     Routines that run when a user was saved
     """
-    if created is True:
+    if created is True and instance and not instance.is_superuser:
         swallow_exception(hydrate_default_group)
-        swallow_exception(assign_default_group_to_user, user_instance=instance)
+        swallow_exception(assign_default_group_to_user, instance, user_instance=instance)
