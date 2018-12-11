@@ -1,6 +1,9 @@
-# from django.shortcuts import render
+from django.shortcuts import render
+
 from django.views import View
 
 
 class IndexView(View):
-    pass
+
+    def get(self, request):
+        return render(request, 'user/index.html')

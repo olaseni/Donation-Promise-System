@@ -24,6 +24,10 @@ class ActionHelper(object):
             _kwargs.pop('id')
         return _kwargs
 
+    @staticmethod
+    def ping():
+        return 'pong'
+
     def create_cause(self, **kwargs):
         """
         Only admins can create causes
