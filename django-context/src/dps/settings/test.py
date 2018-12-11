@@ -6,6 +6,9 @@ ENVIRONMENT = 'test'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# filter out cache
+INSTALLED_APPS = [app for app in INSTALLED_APPS if not 'cache' in app]
+
 # Redis
 # https://redis.io/
 REDIS_SERVER = {}
@@ -20,3 +23,8 @@ CACHES = {
         }
     }
 }
+
+# cacheops
+CACHEOPS_REDIS = {}
+CACHEOPS_DEFAULTS = {}
+CACHEOPS = {}
