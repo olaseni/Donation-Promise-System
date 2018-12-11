@@ -47,6 +47,9 @@ run: up
 restart: down up
 down-up: restart
 
+restart-app:
+	@docker-compose restart app
+
 logs:
 	@docker-compose logs
 

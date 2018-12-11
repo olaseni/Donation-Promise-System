@@ -5,6 +5,16 @@ from django.db.models import Q
 from dps_main.models import Cause, Promise
 
 
+def _no_id(**kwargs):
+    """
+    Strip Ids
+    """
+    _kwargs = {**kwargs}
+    if 'id' in _kwargs:
+        _kwargs.pop('id')
+    return _kwargs
+
+
 class ActionHelper(object):
     """
     Launches actions that may be executed within the context of a user
@@ -18,18 +28,15 @@ class ActionHelper(object):
         self.user = user
 
     @staticmethod
-    def _no_id(**kwargs):
-        _kwargs = {**kwargs}
-        if 'id' in _kwargs:
-            _kwargs.pop('id')
-        return _kwargs
+    def ping():
+        return 'pong'
 
     def create_cause(self, **kwargs):
         """
         Only admins can create causes
         """
         if self.user.is_superuser:
-            return Cause.objects.create(self._no_id(**{**kwargs, **{'creator': self.user}}))
+            return Cause.objects.create(**_no_id(**{**kwargs, **{'creator': self.user}}))
         raise PermissionDenied()
 
     @classmethod
@@ -59,7 +66,7 @@ class ActionHelper(object):
         Only admins can update causes
         """
         if self.user.is_superuser:
-            Cause.objects.filter(pk=_id).update(self._no_id(**kwargs))
+            Cause.objects.filter(pk=_id).update(**_no_id(**kwargs))
         raise PermissionDenied()
 
     def delete_cause(self, _id):
@@ -74,7 +81,7 @@ class ActionHelper(object):
         """
         Allows a user to make a promise agains a cause
         """
-        return Promise.objects.create(self._no_id(**{**kwargs, **{'user': self.user, 'cause_id': cause_id}}))
+        return Promise.objects.create(**_no_id(**{**kwargs, **{'user': self.user, 'cause_id': cause_id}}))
 
     def list_promises(self):
         """
@@ -109,7 +116,7 @@ class ActionHelper(object):
         q = Promise.objects.filter(pk=_id)
         if not self.user.is_superuser:
             q = q.filter(user=self.user)
-        q.update(self._no_id(**kwargs))
+        q.update(**_no_id(**kwargs))
 
     def delete_promise(self, _id):
         """

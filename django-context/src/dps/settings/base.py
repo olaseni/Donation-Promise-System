@@ -30,6 +30,12 @@ DATABASES = {
     }
 }
 
+# Add a middleware class
+MIDDLEWARE += ['dps_main.utilities.middleware.DPSActionsMiddleWare']
+
+# A custom context processor
+TEMPLATES[0]['OPTIONS']['context_processors'] += ['dps_main.utilities.processors.get_factotum']
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 

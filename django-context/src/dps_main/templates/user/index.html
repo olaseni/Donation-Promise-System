@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load dps_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+{% with low=4 %}
+<body>
+{{ factotum.action_helper.ping }}
+
+<div>
+    {% action_helper_ping %}
+</div>
+{% endwith %}
+</body>
+</html>
