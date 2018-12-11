@@ -67,6 +67,7 @@ class ActionHelper(object):
         """
         if self.user.is_superuser:
             Cause.objects.filter(pk=_id).update(**_no_id(**kwargs))
+            return
         raise PermissionDenied()
 
     def delete_cause(self, _id):
@@ -75,6 +76,7 @@ class ActionHelper(object):
         """
         if self.user.is_superuser:
             Cause.objects.filter(pk=_id).delete()
+            return
         raise PermissionDenied()
 
     def add_promise_to_cause(self, cause_id, **kwargs):

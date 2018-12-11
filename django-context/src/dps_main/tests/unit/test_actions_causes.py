@@ -3,12 +3,12 @@ from datetime import date
 from django.contrib.auth.models import AnonymousUser, User
 from django.core.exceptions import PermissionDenied
 
-from dps_main.models import Contact
+from dps_main.models import Contact, Cause
 from dps_main.tests import DpsTestCase
 from dps_main.utilities.actions import ActionHelper
 
 
-class ActionsTestCase(DpsTestCase):
+class CauseActionsTestCase(DpsTestCase):
 
     @staticmethod
     def _create_cause(user, contact, cause_user):
@@ -16,15 +16,40 @@ class ActionsTestCase(DpsTestCase):
         Shorthand for creating causes
         """
         ah = ActionHelper(user)
-        ah.create_cause(title='Title', description='Description', contact=contact,
-                        expiration_date=date.today(), target_amount=30000, creator=cause_user)
+        return ah.create_cause(title='Title', description='Description', contact=contact,
+                               expiration_date=date.today(), target_amount=30000, creator=cause_user)
 
-    def _list_causes(self, user):
+    @staticmethod
+    def _list_causes(user):
         """
         Shorthand for reading causes
         """
         ah = ActionHelper(user)
         return ah.list_causes()
+
+    @staticmethod
+    def _read_cause(user, cause_id):
+        """
+        Shorthand for reading a cause
+        """
+        ah = ActionHelper(user)
+        return ah.get_cause(cause_id)
+
+    @staticmethod
+    def _update_cause(user, cause_id, **kwargs):
+        """
+        Shorthand for updating a cause
+        """
+        ah = ActionHelper(user)
+        return ah.update_cause(cause_id, **kwargs)
+
+    @staticmethod
+    def _delete_cause(user, cause_id):
+        """
+        Shorthand for deleting a cause
+        """
+        ah = ActionHelper(user)
+        return ah.delete_cause(cause_id)
 
     def setUp(self):
         """
@@ -38,13 +63,15 @@ class ActionsTestCase(DpsTestCase):
         User.objects.create_user('user', 'email@email.com', 'fasfj20r92f3')
         su = User.objects.create_superuser('admin5', 'super@email.com', 'sgsgsgsgwt2r2t23')
         # create a cause for a superuser
-        self._create_cause(su, cn, su)
+        cu = self._create_cause(su, cn, su)
+        # save ref
+        self.cu_id = cu.id
 
-    def test_create_cause_anonymous(self):
+    def test_cause_anonymous(self):
         """
         GIVEN an anonymous user
         WHEN attempting to create and read a cause
-        THEN creating should fail, while read should work out
+        THEN creating/deleting should fail, while read should work out
         """
         contact = Contact.objects.get(pk=1)
         au = AnonymousUser()
@@ -53,8 +80,17 @@ class ActionsTestCase(DpsTestCase):
 
         # attempt to read su's cause
         self.assertEqual(len(self._list_causes(au)), 1)
+        self.assertIsInstance(self._read_cause(au, self.cu_id), Cause)
 
-    def test_create_cause_member(self):
+        # attempt to update su's cause
+        with self.assertRaises(PermissionDenied):
+            self._update_cause(au, self.cu_id, title='')
+
+        # attempt to delete su's cause
+        with self.assertRaises(PermissionDenied):
+            self._delete_cause(au, self.cu_id)
+
+    def test_cause_member(self):
         """
         GIVEN a normal member user
         WHEN attempting to create and read a cause
@@ -67,8 +103,17 @@ class ActionsTestCase(DpsTestCase):
 
         # attempt to read su's cause
         self.assertEqual(len(self._list_causes(au)), 1)
+        self.assertIsInstance(self._read_cause(au, self.cu_id), Cause)
 
-    def test_create_cause_super(self):
+        # attempt to update su's cause
+        with self.assertRaises(PermissionDenied):
+            self._update_cause(au, self.cu_id, title='')
+
+        # attempt to delete su's cause
+        with self.assertRaises(PermissionDenied):
+            self._delete_cause(au, self.cu_id)
+
+    def test_cause_super(self):
         """
         GIVEN a super user
         WHEN attempting to create and read a cause
@@ -83,3 +128,17 @@ class ActionsTestCase(DpsTestCase):
 
         # attempt to read su's cause
         self.assertEqual(len(self._list_causes(au)), 2)
+        self.assertIsInstance(self._read_cause(au, self.cu_id), Cause)
+
+        # attempt at updating
+        try:
+            self._update_cause(au, self.cu_id, title='')
+            self.assertEqual(self._read_cause(au, self.cu_id).title, '')
+        except PermissionDenied:
+            self.fail('Cause updates should pass')
+
+        # attempt at deletion
+        try:
+            self._delete_cause(au, self.cu_id)
+        except PermissionDenied:
+            self.fail('Cause deletion should pass')
