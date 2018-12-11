@@ -15,6 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from dps_main.utilities.admin import AdminSite
+
+admin.site = AdminSite()
+admin.autodiscover()
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -10,7 +10,10 @@ BASE_DIR = os.path.dirname(BASE_DIR)
 # Application definition
 
 # INSTALLED_APPS
-INSTALLED_APPS = ['dps_main.apps.DpsMainConfig'] + INSTALLED_APPS + ['rest_framework']
+INSTALLED_APPS = ['dps_main.apps.DpsMainConfig'] + INSTALLED_APPS + ['rest_framework', 'adminplus', 'cacheops']
+# Admin plus
+INSTALLED_APPS = ['django.contrib.admin.apps.SimpleAdminConfig' if app == 'django.contrib.admin' else app for app in
+                  INSTALLED_APPS]
 
 # TEMPLATES
 
@@ -63,3 +66,16 @@ CACHES = {
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
+
+# cacheops
+CACHEOPS_REDIS = {**REDIS_SERVER}
+CACHEOPS_PREFIX = 'dps_main.utilities.cacheops.cacheops_prefix'
+CACHEOPS_DEFAULTS = {
+    'timeout': 60 * 60
+}
+CACHEOPS = {
+    'auth.user': {'ops': 'get', 'timeout': 60 * 15},
+    'auth.*': {'ops': ('fetch', 'get')},
+    'auth.permission': {'ops': 'all'},
+    'dps_main.*': {'ops': 'all'},
+}

@@ -10,9 +10,14 @@ from django.db.models import Q
 
 from dps_main.apps import DpsMainConfig
 
-__all__ = ['create_default_superuser', 'create_default_group', 'hydrate_default_group', 'assign_default_group_to_user']
+__all__ = ['create_default_superuser', 'create_default_group', 'hydrate_default_group', 'assign_default_group_to_user',
+           'get_default_group']
 
 _default_group = 'Members'
+
+
+def get_default_group():
+    return _default_group
 
 
 def contains_static_variables(**kwargs):
@@ -69,7 +74,7 @@ def hydrate_default_group():
     Retrieve interesting permissions and populate the default group
     """
     # bale if we have executed a convenient number of times
-    if hydrate_default_group.counter >= 10:
+    if hydrate_default_group.counter >= 20:
         return
 
     # add permissions every user should have
@@ -90,5 +95,6 @@ def assign_default_group_to_user(user_instance):
     """
     Assigns the default group to this user
     """
+    print(type(user_instance), 345, 'ASSIGN')
     group = Group.objects.get(name=_default_group)
     user_instance.groups.add(group)
