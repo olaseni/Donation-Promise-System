@@ -65,7 +65,7 @@ To accommodate causes and promises, two entities/tables will be added:
     - Title
     - Description
     - Illustration
-    - Contact Id
+    - Contact Id (One to one relationship to contact)
     - Address
     - Phone
     - Email
@@ -78,12 +78,13 @@ To accommodate causes and promises, two entities/tables will be added:
  
  + **Promises**
     - Id
-    - Cause Id (Foreign key to `Causes`)
+    - Cause Id (Foreign key to `Causes`)  # note: unique index exists here to restrict promises per user per cause to 1
     - User Id (Foreign key to Django `Users`)
     - Amount Promised (i.e. all amounts will be in Naira - NGN)
     - Target Date
     - Created
     - Modified
+    
 
 ######Actions
 
