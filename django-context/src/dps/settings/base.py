@@ -30,6 +30,9 @@ DATABASES = {
     }
 }
 
+# Add a middleware class
+MIDDLEWARE += ['dps_main.utilities.middleware.DPSActionsMiddleWare']
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 

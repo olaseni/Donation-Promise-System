@@ -19,7 +19,7 @@ CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "OPTIONS": {
-            "CLIENT_CLASS": "mockredis.client.mock_redis_client",
+            "CLIENT_CLASS": "dps_main.utilities.mock_redis",
         }
     }
 }
