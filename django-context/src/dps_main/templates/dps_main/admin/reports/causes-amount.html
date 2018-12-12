@@ -1,0 +1,9 @@
+{% extends 'adminplus/base.html' %}
+
+{% block content %}
+
+{% load dps_tags %}
+
+{% fusion_bar_chart_cause report=report caption='Cause / Amount(NGN)' x_axis='Causes' y_axis='Amount promised' number_prefix='N' %}
+
+{% endblock %}

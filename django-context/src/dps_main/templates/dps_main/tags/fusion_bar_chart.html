@@ -1,0 +1,6 @@
+{% load static %}
+
+<script type="text/javascript" src="{% static "dps_main/js/fusioncharts/fusioncharts.js" %}" ></script>
+<script type="text/javascript" src="{% static "dps_main/js/fusioncharts/themes/fusioncharts.theme.fusion.js" %}"></script>
+
+<div id="{{ html_container | safe }}">{{ output | safe }}</div>
