@@ -140,5 +140,7 @@ class CauseActionsTestCase(DpsTestCase):
         # attempt at deletion
         try:
             self._delete_cause(au, self.cu_id)
+            # There should be 1 left
+            self.assertEqual(len(self._list_causes(au)), 1)
         except PermissionDenied:
             self.fail('Cause deletion should pass')
