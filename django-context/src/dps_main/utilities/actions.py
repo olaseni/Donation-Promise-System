@@ -52,7 +52,7 @@ class ActionHelper(object):
         Lists causes where the current user hasn't promised
         :return: QuerySet
         """
-        return Cause.objects.filter(~Q(id__in=Promise.objects.values_list('id').filter(user=self.user)))
+        return Cause.objects.filter(~Q(id__in=Promise.objects.values_list('cause').filter(user=self.user)))
 
     @classmethod
     def get_cause(cls, _id):
@@ -67,6 +67,7 @@ class ActionHelper(object):
         """
         if self.user.is_superuser:
             Cause.objects.filter(pk=_id).update(**_no_id(**kwargs))
+            return
         raise PermissionDenied()
 
     def delete_cause(self, _id):
@@ -75,6 +76,7 @@ class ActionHelper(object):
         """
         if self.user.is_superuser:
             Cause.objects.filter(pk=_id).delete()
+            return
         raise PermissionDenied()
 
     def add_promise_to_cause(self, cause_id, **kwargs):
@@ -142,12 +144,13 @@ class ActionHelper(object):
         Get own promise attached to cause
         :return:
         """
-        return Promise.objects.filter(cause_id=cause_id, user=self.user)
+        return Promise.objects.get(cause_id=cause_id, user=self.user)
 
-    @classmethod
-    def get_all_causes_promised(cls):
+    def list_all_causes_promised(self):
         """
-        Gets all promises that have been promised
+        Gets all causes that have been promised
         :return:
         """
-        return Cause.objects.filter(id__in=Promise.objects.values_list('id'))
+        if self.user.is_superuser:
+            return Cause.objects.filter(id__in=Promise.objects.values_list('cause'))
+        raise PermissionDenied
