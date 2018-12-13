@@ -1,0 +1,9 @@
+{% extends 'adminplus/base.html' %}
+
+{% block content %}
+
+{% load dps_tags %}
+
+{% fusion_bar_chart_cause report=report caption='Cause / Promise' x_axis='Causes' y_axis='Number of promises' %}
+
+{% endblock %}

@@ -52,4 +52,4 @@ def on_model_saved(sender, instance, created, **kwargs):
     """
     if created is True and instance and not instance.is_superuser:
         swallow_exception(hydrate_default_group)
-        swallow_exception(assign_default_group_to_user, instance, user_instance=instance)
+        swallow_exception(assign_default_group_to_user, user_instance=instance)

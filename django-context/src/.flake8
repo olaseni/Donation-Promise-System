@@ -7,5 +7,7 @@ exclude=
     .svn,CVS,.bzr,.hg,.git,__pycache__,.tox,
     # ignore media folder
     media
+    # ignore fusioncahrts
+    dps_main/utilities/fusioncharts.py
 filterwarnings=ignore::FutureWarning
 ignore=D,E111,E127,E128,E225,E501,E731,E731,E901,F403,F405,W291,W293,W391

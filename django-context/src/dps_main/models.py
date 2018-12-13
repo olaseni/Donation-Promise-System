@@ -9,11 +9,11 @@ def tomorrow():
 
 
 class Contact(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    address = models.CharField(max_length=300)
-    phone = models.CharField(max_length=30)
-    email = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+    address = models.CharField(max_length=400)
+    phone = models.CharField(max_length=50)
+    email = models.CharField(max_length=150)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -27,7 +27,7 @@ class Contact(models.Model):
 
 
 class Cause(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=300)
     description = models.TextField(help_text="Full description of the cause. This will be displayed to the user")
     illustration = models.ImageField(help_text='Images associated with the cause',
                                      upload_to='illustration/%Y/%m/%d/')
