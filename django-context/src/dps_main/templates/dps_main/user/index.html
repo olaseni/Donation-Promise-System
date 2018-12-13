@@ -1,17 +1,29 @@
-<!DOCTYPE html>
-{% load dps_tags %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-{% with low=4 %}
-<body>
-{{ factotum.action_helper.ping }}
+{% extends 'dps_main/centered-fluid-base.html' %}
 
-<div>
-    {% action_helper_ping %}
+{% block title %}Welcome{% endblock %}
+
+{% block centered-content %}
+
+{% load bootstrap4 %}
+
+
+<div class="container-fluid">
+    <div class="row">
+
+        <main role="main" class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-4">
+
+            <h3>{% block section-title %}&nbsp;{% endblock %}</h3>
+            <hr/>
+            <section>
+                {# Display django.contrib.messages as Bootstrap alerts #}
+                {% bootstrap_messages %}
+                {% block section-content %}&nbsp;{% endblock %}
+            </section>
+
+        </main>
+
+
+    </div>
 </div>
-{% endwith %}
-</body>
-</html>
+
+{% endblock %}

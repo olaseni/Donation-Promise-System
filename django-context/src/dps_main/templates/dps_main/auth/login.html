@@ -1,0 +1,31 @@
+{% extends 'dps_main/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+{% load bootstrap4 %}
+
+<main class="main container-fluid">
+    <section class="row">
+
+        <div class="container-fluid" style="height: 10em;">
+        </div>
+
+        <div class="col col-8"></div>
+        <div class="col col-3">
+            <h2>Login</h2>
+
+            <form method="post" class="form">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+                {% endbuttons %}
+            </form>
+        </div>
+        <div class="col col-1"></div>
+    </section>
+</main>
+
+{% endblock %}

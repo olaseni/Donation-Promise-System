@@ -140,7 +140,7 @@ def make_bulk_promises(size, users=None, causes=None):
             _user = choice(users)
             _cause = choice(causes)
             _key = (_user.id, _cause.id)
-            i = 0 # iteration check
+            i = 0  # iteration check
             while _key in unique:
                 _user = choice(users)
                 _cause = choice(causes)
