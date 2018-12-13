@@ -25,4 +25,8 @@ Tests can be run:
 
     $> make lint-and-test
 
+##### Demo Data
 
+Demo data can be created: 
+
+    $> make manage-demodata
