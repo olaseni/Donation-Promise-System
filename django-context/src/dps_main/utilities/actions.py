@@ -52,7 +52,9 @@ class ActionHelper(object):
         Lists causes where the current user hasn't promised
         :return: QuerySet
         """
-        return Cause.objects.filter(~Q(id__in=Promise.objects.values_list('cause').filter(user=self.user)))
+        if self.user.is_authenticated:
+            return Cause.objects.filter(~Q(id__in=Promise.objects.values_list('cause').filter(user=self.user)))
+        return self.list_causes()
 
     @classmethod
     def get_cause(cls, _id):
