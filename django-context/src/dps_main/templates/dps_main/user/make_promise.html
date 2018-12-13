@@ -1,0 +1,92 @@
+{% extends 'dps_main/user/index.html' %}
+
+
+{% block section-title %}
+<div class="row"><strong>{{ object.title }}</strong></div> {% endblock %}
+
+{% block section-content %}
+{% load bootstrap4 dps_tags %}
+<style>
+
+ body { background: #eee }
+
+.container-fluid { max-width: 1200px; }
+
+header {
+	background: #563d7c;
+	padding: 2em 1em;
+	color: #fff;
+	margin-bottom: 2em;
+	h1 {
+		font-weight: 200;
+	}
+}
+
+.card {
+	background: #fff;
+	box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	img {
+		width: 100%;
+	}
+}
+
+[class*="row"] {
+	margin-bottom: 1em;
+  justify-content: center;
+}
+
+[class*="col-"] {
+	background: #efefef;
+	padding-top: .75rem;
+	padding-bottom: .75rem;
+	width: 100%;
+}
+
+
+
+
+</style>
+
+<div class="container-fluid">
+
+
+    <div class="row">
+        <p class="col-lg-12">Expiration Date: {{ object.expiration_date|date }}</p>
+        <br/>
+        <p class="col-lg-12">Target Amount: NGN {{ object.target_amount }}</p>
+        <br/>
+        <table class="col-lg-12">
+            <tr>
+                <td><img src="{{ object.illustration }}" alt="{{ object.title }}"/></td>
+                <td>
+                    {% if factotum.can_promise|key_value:object %}
+                    <form method="post" class="form" action="{% url 'make_promise_go' object.id %}">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        {% buttons %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        {% endbuttons %}
+                    </form>
+                    {% else %}
+                    <p><a href="{% url 'home' %}" class="btn btn-primary">Continue to causes</a></p>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <p class="col-lg-12" style="white-space: pre-wrap">
+            {{ object.description }}
+        </p>
+    </div>
+
+
+</div>
+
+
+</div>
+{% endblock %}
+
+<div>
+    <br/>
+    &nbsp;
+</div>

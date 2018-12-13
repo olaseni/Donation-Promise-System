@@ -10,6 +10,11 @@ from dps_main.utilities.actions import ActionHelper
 register = template.Library()
 
 
+@register.filter
+def key_value(dictionary, key):
+    return dictionary[key]
+
+
 @register.simple_tag(takes_context=True)
 def action_helper_ping(context):
     """

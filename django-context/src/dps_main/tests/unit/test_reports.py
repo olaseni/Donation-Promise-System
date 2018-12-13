@@ -48,7 +48,17 @@ def _create_fixtures():
         user = users[i]
         promise_list.append(faker.make_promise(user=user, cause=number_cause)[0])
 
-    faker.make_bulk_promises_with_data_list(promise_list)
+    # sanitize duplicates
+    unique = []
+    promise_list_final = []
+
+    for promise_data in promise_list:
+        _key = (promise_data['user'].id, promise_data['cause'].id)
+        if _key not in unique:
+            unique.append(_key)
+            promise_list_final.append(promise_data)
+
+    faker.make_bulk_promises_with_data_list(promise_list_final)
 
     return money_cause, number_cause
 
