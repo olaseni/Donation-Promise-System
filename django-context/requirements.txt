@@ -11,3 +11,4 @@ coverage==4.5.2
 redis==3.0.1
 mockredispy==2.9.3
 Pillow==2.1.0
+mimesis==2.1.0

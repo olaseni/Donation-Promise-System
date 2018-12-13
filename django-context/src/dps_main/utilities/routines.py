@@ -95,6 +95,5 @@ def assign_default_group_to_user(user_instance):
     """
     Assigns the default group to this user
     """
-    print(type(user_instance), 345, 'ASSIGN')
     group = Group.objects.get(name=_default_group)
     user_instance.groups.add(group)
