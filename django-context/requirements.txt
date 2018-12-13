@@ -3,6 +3,7 @@ djangorestframework==3.9.0
 django-redis==4.10.0
 django-adminplus==0.5
 django-cacheops==4.1
+django-bootstrap4==0.0.6
 psycopg2-binary==2.7.5
 ptvsd==3.0.0
 pycodestyle==2.4.0

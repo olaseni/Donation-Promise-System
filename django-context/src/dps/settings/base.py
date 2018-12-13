@@ -10,7 +10,8 @@ BASE_DIR = os.path.dirname(BASE_DIR)
 # Application definition
 
 # INSTALLED_APPS
-INSTALLED_APPS = ['dps_main.apps.DpsMainConfig'] + INSTALLED_APPS + ['rest_framework', 'adminplus', 'cacheops']
+INSTALLED_APPS = ['dps_main.apps.DpsMainConfig'] + INSTALLED_APPS + ['rest_framework', 'adminplus', 'cacheops',
+                                                                     'bootstrap4']
 # Admin plus
 INSTALLED_APPS = ['django.contrib.admin.apps.SimpleAdminConfig' if app == 'django.contrib.admin' else app for app in
                   INSTALLED_APPS]
@@ -85,3 +86,8 @@ CACHEOPS = {
     'auth.permission': {'ops': 'all'},
     'dps_main.*': {'ops': 'all'},
 }
+
+#
+LOGIN_URL = 'auth/login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

@@ -133,7 +133,25 @@ def make_bulk_promises(size, users=None, causes=None):
     indices = range(size)
     users = users or User.objects.all()
     causes = causes or Cause.objects.all()
+    unique = []
+    promises_list = []
     try:
-        make_bulk_promises_with_data_list([make_promise(user=choice(users), cause=choice(causes))[0] for _ in indices])
-    except IntegrityError:
-        pass
+        for _ in indices:
+            _user = choice(users)
+            _cause = choice(causes)
+            _key = (_user.id, _cause.id)
+            i = 0  # iteration check
+            while _key in unique:
+                _user = choice(users)
+                _cause = choice(causes)
+                _key = (_user.id, _cause.id)
+                i = i + 1
+                if i > 100:
+                    break
+
+            promises_list.append(make_promise(user=_user, cause=_cause)[0])
+            unique.append(_key)
+
+        make_bulk_promises_with_data_list(promises_list)
+    except IntegrityError as ie:
+        return ie

@@ -82,3 +82,7 @@ purge: down
 
 circle: #purge
 	@circleci local execute
+
+manage-demodata:
+	# generate demo data
+	@docker-compose run --rm --name dps-app-generator app demodata
