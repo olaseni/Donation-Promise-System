@@ -73,6 +73,7 @@ header {
                             {% else %}
                             <a href="{% url 'login' %}" class="btn btn-danger">Login to promise</a>
                             {% endif %}
+                            <a href="javascript:void(0);" class="btn btn-light" style="cursor: none;">NGN <strong>{{ cause.target_amount }}</strong></a>
                         </p>
                         <p class="card-text">{{ cause.description|truncatewords_html:35 }}</p>
                     </div>
