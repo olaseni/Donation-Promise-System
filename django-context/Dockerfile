@@ -7,9 +7,10 @@ ENV PATH="${PATH}:/code/bin:/app/bin:/source/bin"
 RUN apk update \
   && apk add --virtual build-deps gcc musl-dev \
   && apk add postgresql-dev postgresql-client openssh bash bash-completion \
-  && apk add --no-cache jpeg-dev zlib-dev \
+  && apk add --no-cache build-base python-dev py-pip jpeg-dev zlib-dev libpng-dev \
   && apk add --update make
 
+ENV LIBRARY_PATH=/lib:/usr/lib
 
 RUN pip install --upgrade pip
 COPY requirements.txt ./

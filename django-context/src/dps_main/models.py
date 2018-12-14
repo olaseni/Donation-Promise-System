@@ -30,7 +30,7 @@ class Cause(models.Model):
     title = models.CharField(max_length=300)
     description = models.TextField(help_text="Full description of the cause. This will be displayed to the user")
     illustration = models.ImageField(help_text='Images associated with the cause',
-                                     upload_to='illustration/%Y/%m/%d/', null=True)
+                                     upload_to='illustration/%Y/%m/%d/')
     contact = models.OneToOneField(Contact, verbose_name='Primary Contact',
                                    help_text="Contact associated with the cause",
                                    on_delete=models.CASCADE)

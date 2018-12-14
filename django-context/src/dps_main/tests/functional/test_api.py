@@ -1,5 +1,8 @@
 from random import choice
 from io import BytesIO
+from datetime import datetime, date
+from json import JSONEncoder
+from base64 import b64encode
 
 from PIL import Image
 
@@ -8,6 +11,17 @@ from django.test.utils import override_settings
 from dps_main.tests import DpsTestCase
 from dps_main.utilities import faker
 from dps_main.utilities.actions import ActionHelper
+
+
+class JSONEncoderPlus(JSONEncoder):
+    def default(self, o):
+        if isinstance(o, datetime):
+            return o.isoformat()
+
+        if isinstance(o, date):
+            return o.isoformat()
+
+        return JSONEncoder.default(self, o)
 
 
 @override_settings(CACHES={
@@ -40,9 +54,13 @@ class APITestCase(DpsTestCase):
     @property
     def random_image(self):
         bio = BytesIO()
-        image = Image.new('RGBA', size=(50, 50), color=(256, 0, 0))
-        image.save(bio, 'PNG')
+        image = Image.new("RGB", (200, 200), 'green')
+        image.save(bio, 'JPEG', compress_level=0, optimize=False)
         return bio
+
+    @property
+    def random_image_64(self):
+        return b64encode(self.random_image.getvalue()).decode()
 
     def test_cause_get_list_unauthenticated(self):
         """
@@ -104,17 +122,14 @@ class APITestCase(DpsTestCase):
         request = self.api_client.post('/api/v1/cause/', data={'fake': 'o'})
         self.assertEqual(request.status_code, 403)
 
-    def _test_cause_post_detail_authenticated(self):
+    def test_cause_post_detail_authenticated(self):
         """
         GIVEN a request-worthy api
         WHEN an `authed` POST request is made to causes detail
         THEN a write should occur
         """
         memory_cause = faker.cause()[0]
-        memory_cause.pop('contact')
-        memory_cause.pop('illustration')
-        # memory_cause['illustration'] = self.random_image
+        memory_cause['illustration'] = self.random_image_64
         self.api_client.force_login(self.users['super'])
-        request = self.api_client.post('/api/v1/cause/', data=memory_cause, format='multipart')
-        print(request.data)
-        self.assertEqual(request.status_code, 403)
+        request = self.api_client.post('/api/v1/cause/', data=memory_cause)
+        self.assertEqual(request.status_code, 201)
