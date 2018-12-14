@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 from django.shortcuts import redirect
-from rest_framework import routers
+from rest_framework.routers import SimpleRouter
 
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
@@ -11,8 +11,7 @@ from django.views.decorators.http import require_POST, require_safe
 from dps_main.views import views
 from dps_main.views.viewsets import CauseViewSet, PromiseViewSet
 
-# Routers provide an easy way of automatically determining the URL conf.
-router = routers.DefaultRouter()
+router = SimpleRouter()
 
 router.register(r'cause', CauseViewSet)
 router.register(r'promise', PromiseViewSet)

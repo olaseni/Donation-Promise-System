@@ -31,14 +31,14 @@ def _data(model_class, _id=None, create=False, d=None):
     return d, model
 
 
-def user(create=False, superuser=False):
+def user(create=False, superuser=False, password=None):
     """
     Create a `Sampler/Demo` user
     """
     d = dict(
         username=_g.person.username(),
         email=_g.person.email(),
-        password=_g.person.password())
+        password=password or _g.person.password())
     _user = None
     if create:
         o = User.objects
@@ -71,12 +71,14 @@ def cause(_id=None, create=False, creator=None, _contact=None):
     """
     Create a `Sampler/Demo` cause
     """
-    if not creator or not creator.is_superuser:
-        raise PermissionDenied()
+    if create:
+        if not creator or not creator.is_superuser:
+            raise PermissionDenied()
     if not _contact:
         _contact = contact(create=create)
         _contact = _contact[1] if create else _contact[0]
-    return _data(Cause, _id=_id, create=create, d=dict(
+
+    data = dict(
         contact=_contact,
         title=_g.text.title(),
         description=_g.text.text(quantity=randint(6, 20)),
@@ -84,7 +86,8 @@ def cause(_id=None, create=False, creator=None, _contact=None):
         target_amount=float(_re_numeric.sub('', _g.business.price())),
         illustration=_g.internet.stock_image(500, 500),
         creator=creator
-    ))
+    )
+    return _data(Cause, _id=_id, create=create, d=data)
 
 
 def bulk_causes(size, creator=None):

@@ -63,7 +63,7 @@ header {
                 <div class="card" style="width: 20rem;">
                     <img class="card-img-top" src="{{ cause.illustration }}" alt="{{ cause.title }}">
                     <div class="card-body">
-                        <h5 class="card-title">{{ cause.title|truncatewords:7 }}</h5>
+                        <h5 class="card-title" title="{{ cause.title|safe }}">{{ cause.title|truncatewords:7 }}</h5>
                         <p class="card-text">
                             <small class="text-muted">{{ cause.expiration_date|date }}</small>
                         </p>
@@ -73,6 +73,7 @@ header {
                             {% else %}
                             <a href="{% url 'login' %}" class="btn btn-danger">Login to promise</a>
                             {% endif %}
+                            <a href="javascript:void(0);" class="btn btn-light" style="cursor: none;">NGN <strong>{{ cause.target_amount }}</strong></a>
                         </p>
                         <p class="card-text">{{ cause.description|truncatewords_html:35 }}</p>
                     </div>

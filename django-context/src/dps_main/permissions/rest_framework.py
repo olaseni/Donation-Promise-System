@@ -1,4 +1,4 @@
-from rest_framework.permissions import DjangoModelPermissions
+from rest_framework.permissions import DjangoModelPermissions, BasePermission
 
 
 class SafeDjangoModelPermissions(DjangoModelPermissions):
@@ -16,3 +16,12 @@ class SafeDjangoModelPermissions(DjangoModelPermissions):
             'OPTIONS': ['%(app_label)s.view_%(model_name)s'],
             'HEAD': ['%(app_label)s.view_%(model_name)s'],
         }}
+
+
+class IsAdminSuperUser(BasePermission):
+    """
+    Allows access only to admin super users.
+    """
+
+    def has_permission(self, request, view):
+        return request.user and request.user.is_staff and request.user.is_superuser

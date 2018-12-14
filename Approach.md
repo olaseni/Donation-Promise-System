@@ -117,23 +117,22 @@ functions:
 Uses DRF to expose the core actions via REST endpoints.
 API Root is `/api/v1/`, with support for versioning.
 
- + POST /cause/  - _creates a cause_
- + GET /cause/  - _gets all active causes_
- + GET /cause/available/  - _gets all active causes_
- + GET /cause/<id>  - _gets single cause_
- + PUT /cause/<id>  - _updates single cause_
- + DELETE /cause/<id>  - _deletes single cause_
- + POST /promise/<cause_id>/  - _make a promise to a cause_
- + GET /promise/  - _gets all promises_
- + GET /promise/<id>  - _gets single promise_
- + PUT /promise/<id>  - _updates single promise_
- + DELETE /promise/<id>  - _deletes single promise_
- + GET /cause/promises - _admin only, all promises by cause_
- + GET /cause/<id>/promise/ - _promise associated with a cause_
- + GET /cause/promised/ - _all causes which user has promised_
- + GET /cause/top/amount/
- + GET /cause/top/promises/
- 
+ + **POST** `/cause/`  - _creates a cause_
+ + **GET** `/cause/`  - _gets all active causes_
+ + **GET** `/cause/available/`  - _gets all active causes_
+ + **GET** `/cause/<int:id>/`  - _gets single cause_
+ + **PUT** `/cause/<int:id>/`  - _updates single cause_
+ + **DELETE** `/cause/<int:id>/`  - _deletes single cause_
+ + **POST** `/promise/<int:cause_id>/`  - _make a promise to a cause_
+ + **GET** `/promise/`  - _gets all promises_
+ + **GET** `/promise/<int:id>/`  - _gets single promise_
+ + **PUT** `/promise/<int:id>/`  - _updates single promise_
+ + **DELETE** `/promise/<int:id>/`  - _deletes single promise_
+ + **GET** `/cause/promises/` - _admin only, all promises by cause_
+ + **GET** `/cause/<int:id>/promise/` - _promise associated with a cause_
+ + **GET** `/cause/promised/` - _all causes which user has promised_
+ + **GET** `/cause/top/amount/` - _top grossing causes by amount promised_
+ + **GET** `/cause/top/promises/` - _top grossing promises by number of promises made_
  
 ######Views
  
