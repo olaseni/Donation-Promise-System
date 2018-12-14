@@ -1,16 +1,9 @@
 from rest_framework import serializers
 
-from django.contrib.auth.models import User
 from dps_main.models import Contact, Cause, Promise
 
 
 # Serializers define the API representation.
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'is_staff')
-
 
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
