@@ -123,7 +123,7 @@ API Root is `/api/v1/`, with support for versioning.
  + **GET** `/cause/<int:id>/`  - _gets single cause_
  + **PUT** `/cause/<int:id>/`  - _updates single cause_
  + **DELETE** `/cause/<int:id>/`  - _deletes single cause_
- + **POST** `/promise/<int:cause_id>/`  - _make a promise to a cause_
+ + **POST** `/promise/<int:cause_id>/make/`  - _make a promise to a cause_
  + **GET** `/promise/`  - _gets all promises_
  + **GET** `/promise/<int:id>/`  - _gets single promise_
  + **PUT** `/promise/<int:id>/`  - _updates single promise_
