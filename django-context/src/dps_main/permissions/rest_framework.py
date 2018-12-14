@@ -18,10 +18,12 @@ class SafeDjangoModelPermissions(DjangoModelPermissions):
         }}
 
 
-class IsAdminSuperUser(BasePermission):
+class IsAdminSuper(BasePermission):
     """
     Allows access only to admin super users.
     """
 
     def has_permission(self, request, view):
         return request.user and request.user.is_staff and request.user.is_superuser
+
+

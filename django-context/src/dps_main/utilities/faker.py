@@ -112,6 +112,8 @@ def make_promise(_id=None, create=False, user=None, cause=None, amount=None):
     """
     if user and cause:
         try:
+            if create and not isinstance(cause, Cause) and cause:
+                cause = Cause.objects.get(pk=cause)
             return _data(Promise, _id=_id, create=create, d=dict(
                 cause=cause,
                 user=user,
