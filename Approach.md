@@ -128,11 +128,11 @@ API Root is `/api/v1/`, with support for versioning.
  + **GET** `/promise/<int:id>/`  - _gets single promise_
  + **PUT** `/promise/<int:id>/`  - _updates single promise_
  + **DELETE** `/promise/<int:id>/`  - _deletes single promise_
- + **GET** `/cause/promises/` - _admin only, all promises by cause_
+ + **GET** `/cause/<int:id>/promises/` - _admin only, all promises by cause_
  + **GET** `/cause/<int:id>/promise/` - _promise associated with a cause_
  + **GET** `/cause/promised/` - _all causes which user has promised_
  + **GET** `/cause/top/amount/` - _top grossing causes by amount promised_
- + **GET** `/cause/top/promises/` - _top grossing promises by number of promises made_
+ + **GET** `/cause/top/promises/` - _top grossing causes by number of promises made_
  
 ######Views
  
