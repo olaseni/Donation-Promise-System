@@ -24,6 +24,12 @@ The app can be started by running:
 Tests can be run: 
 
     $> make lint-and-test
+    
+#### Coverage
+
+Run tests coverage
+
+    $> make lint-and-test-and-coverage
 
 ##### Demo Data
 
