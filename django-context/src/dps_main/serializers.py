@@ -69,23 +69,14 @@ class CauseSerializer(serializers.ModelSerializer):
     illustration = Base64ImageField(max_length=None, use_url=True, )
 
     def create(self, validated_data):
-        context = self._context or {}
-        request = context.get('request')
-
-        if request and hasattr(request, 'user'):
-            user = getattr(request, 'user')
-            data = getattr(request, 'data')
-
-            if user:
-                validated_data['creator'] = user
-                validated_data['creator_id'] = user.id
-
-                if data:
-                    contact_data = data.get('contact')
-                    contact = Contact.objects.create(**contact_data)
-                    validated_data['contact'] = contact
-                    validated_data['contact_id'] = contact.id
-
+        """
+        Update user and nested contact
+        """
+        request = self._context['request']
+        validated_data.update(dict(creator=request.user, creator_id=request.user.id))
+        if request.data and 'contact' in request.data:
+            contact = Contact.objects.create(**request.data['contact'])
+            validated_data.update(dict(contact=contact, contact_id=contact.id))
         return super().create(validated_data)
 
     class Meta:

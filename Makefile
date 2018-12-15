@@ -64,6 +64,10 @@ lint:
 
 lint-and-test: lint manage-test
 
+lint-and-test-and-coverage: export DJANGO_SETTINGS_MODULE=dps.settings.test
+lint-and-test-and-coverage:
+	@docker-compose run --rm --name dps-app-cov --entrypoint /bin/bash app -c "coverage run --source='.' manage.py lintandtest && coverage report"
+
 build: lint-and-test
 
 docker-build-image:

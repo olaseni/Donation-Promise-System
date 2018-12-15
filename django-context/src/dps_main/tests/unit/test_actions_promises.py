@@ -237,14 +237,14 @@ class PromiseActionsTestCase(DpsTestCase):
         self._make_promise(self.user, self.cu_id)
 
         # retrieves promise
-        p = ah.get_promise_for_cause(self.cu_id)
+        p = ah.get_promise_for_cause(self.cu_id).get()
         self.assertIsInstance(p, Promise)
 
         # other user makes a promise on that cause
         self._make_promise(self.su, self.cu_id)
 
         # retrieves same promise again
-        self.assertEqual(ah.get_promise_for_cause(self.cu_id).id, p.id)
+        self.assertEqual(ah.get_promise_for_cause(self.cu_id).get().id, p.id)
 
     def test_all_causes_promised(self):
         """

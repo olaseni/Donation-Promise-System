@@ -138,6 +138,10 @@ def make_bulk_promises(size, users=None, causes=None):
     indices = range(size)
     users = users or User.objects.all()
     causes = causes or Cause.objects.all()
+    # convert ids to instances
+    users = [_user if isinstance(_user, User) else User.objects.get(pk=_user) for _user in users]
+    causes = [_cause if isinstance(_cause, Cause) else Cause.objects.get(pk=_cause) for _cause in causes]
+
     unique = []
     promises_list = []
     try:

@@ -146,13 +146,24 @@ class ActionHelper(object):
         Get own promise attached to cause
         :return:
         """
-        return Promise.objects.get(cause_id=cause_id, user=self.user)
+        if self.user.is_authenticated:
+            return Promise.objects.filter(cause_id=cause_id, user=self.user)
+        return Promise.objects.none()
+
+    def get_promise_for_cause_(self, cause_id):
+        """
+        Get own promise attached to cause
+        :return:
+        """
+        if self.user.is_authenticated:
+            return Promise.objects.get(cause_id=cause_id, user=self.user)
+        return None
 
     def list_all_causes_promised(self):
         """
         Gets all causes that have been promised
         :return:
         """
-        if self.user.is_superuser:
+        if self.user.is_authenticated:
             return Cause.objects.filter(id__in=Promise.objects.values_list('cause'))
         raise PermissionDenied
