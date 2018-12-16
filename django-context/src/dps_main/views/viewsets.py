@@ -122,7 +122,7 @@ class CauseViewSet(ModelViewSet):
         """
         returns a promise associated with a cause for a user
         """
-        return self._respond_with_instances(self.action_helper.get_promise_for_cause_(pk), detail=True)
+        return self._respond_with_instances(self.action_helper.get_promise_for_cause(pk).get(), detail=True)
 
     @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
     def promised(self, request):
