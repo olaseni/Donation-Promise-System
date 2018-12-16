@@ -23,10 +23,6 @@ manage-pyshell:
 manage-dbshell:
 	@docker-compose exec app python3 manage.py dbshell
 
-manage-test: export DJANGO_SETTINGS_MODULE=dps.settings.test
-manage-test:
-	@docker-compose run --rm --name dps-app-test app lintandtest
-
 manage-tests: manage-test
 
 app-shell:
@@ -59,17 +55,6 @@ logsf:
 app-logs:
 	@docker-compose logs -f --tail=20 app ; true
 
-lint:
-	@flake8 django-context/src
-
-lint-and-test: lint manage-test
-
-lint-and-test-and-coverage: export DJANGO_SETTINGS_MODULE=dps.settings.test
-lint-and-test-and-coverage:
-	@docker-compose run --rm --name dps-app-cov --entrypoint /bin/bash app -c "coverage run --source='.' manage.py lintandtest && coverage report"
-
-build: lint-and-test
-
 docker-build-image:
 	# Builds the python-django image
 	@docker build -t olaseni/python-django:dps-1.0 django-context
@@ -90,3 +75,20 @@ circle: #purge
 manage-demodata:
 	# generate demo data
 	@docker-compose run --rm --name dps-app-generator app demodata
+
+
+manage-test: export DJANGO_SETTINGS_MODULE=dps.settings.test
+manage-test:
+	@docker-compose run --rm --name dps-app-test app test
+
+lint-and-test: export DJANGO_SETTINGS_MODULE=dps.settings.test
+lint-and-test:
+	@docker-compose run --rm --name dps-app-test app lintandtest
+
+lint-and-test-and-coverage: export DJANGO_SETTINGS_MODULE=dps.settings.test
+lint-and-test-and-coverage:
+	@docker-compose run --rm --name dps-app-cov --entrypoint /bin/bash app -c "coverage run --source='.' manage.py lintandtest && coverage report"
+
+build: run manage-migrate manage-demodata
+
+buid-run: build run

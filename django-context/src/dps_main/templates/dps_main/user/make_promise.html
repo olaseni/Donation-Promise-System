@@ -45,6 +45,7 @@ header {
 
 
 
+
 </style>
 
 <div class="container-fluid">
@@ -59,7 +60,7 @@ header {
             <tr>
                 <td><img src="{{ object.illustration }}" alt="{{ object.title }}"/></td>
                 <td>
-                    {% if factotum.can_promise|key_value:object %}
+                    {% if factotum.can_promise_for_context_cause %}
                     <form method="post" class="form" action="{% url 'make_promise_go' object.id %}">
                         {% csrf_token %}
                         {% bootstrap_form form %}
@@ -68,7 +69,15 @@ header {
                         {% endbuttons %}
                     </form>
                     {% else %}
-                    <p><a href="{% url 'home' %}" class="btn btn-primary">Continue to causes</a></p>
+                    <div>
+                        {% with promise=factotum.promise_for_context_cause %}
+                        <p>
+                            You promised NGN <strong>{{ promise.amount }}</strong> to be redeemed at <strong>{{ promise.target_date|date }}</strong>.
+                        </p>
+                        <hr/>
+                        {% endwith %}
+                        <p><a href="{% url 'home' %}" class="btn btn-primary">Continue to causes</a></p>
+                    </div>
                     {% endif %}
                 </td>
             </tr>
