@@ -1,5 +1,5 @@
-Django==2.1.7
-djangorestframework==3.9.0
+Django==2.1.9
+djangorestframework==3.10.3
 django-redis==4.10.0
 django-adminplus==0.5
 django-cacheops==4.1
