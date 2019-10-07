@@ -1,4 +1,4 @@
-Django==2.1.9
+Django>=2.1.11
 djangorestframework==3.10.3
 django-redis==4.10.0
 django-adminplus==0.5
@@ -11,5 +11,5 @@ flake8==3.6.0
 coverage==4.5.2
 redis==3.0.1
 mockredispy==2.9.3
-pillow==2.1.0
+pillow>=3.3.2
 mimesis==2.1.0
