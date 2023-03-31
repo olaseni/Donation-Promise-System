@@ -9,7 +9,7 @@ ptvsd==3.0.0
 pycodestyle==2.4.0
 flake8==3.6.0
 coverage==4.5.2
-redis==3.0.1
+redis==4.4.4
 mockredispy==2.9.3
 pillow>=3.3.2
 mimesis==2.1.0
